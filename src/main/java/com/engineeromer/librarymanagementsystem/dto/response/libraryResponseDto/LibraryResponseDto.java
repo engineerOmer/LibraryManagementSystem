@@ -1,6 +1,6 @@
 package com.engineeromer.librarymanagementsystem.dto.response.libraryResponseDto;
 
-import com.engineeromer.librarymanagementsystem.entity.Book;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

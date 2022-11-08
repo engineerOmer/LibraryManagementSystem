@@ -1,6 +1,6 @@
 package com.engineeromer.librarymanagementsystem.dto.request.bookRequest;
 
-import com.engineeromer.librarymanagementsystem.entity.Category;
+
 import lombok.Data;
 
 import java.time.LocalDate;

@@ -1,7 +1,5 @@
 package com.engineeromer.librarymanagementsystem.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,8 +37,13 @@ public class User {
     @Column(name = "tckn")
     private String tckn;
 
-    @ManyToMany(mappedBy = "users",fetch = FetchType.LAZY)
-    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "USER_BOOK",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    @JsonManagedReference
     private Set<Book> books = new HashSet<>();
 
     public void addBook(Book book){

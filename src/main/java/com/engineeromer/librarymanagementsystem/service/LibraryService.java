@@ -20,6 +20,7 @@ public class LibraryService {
     private final BookRepository bookRepository;
     private final BookService bookService;
     private final UserService userService;
+    private final UserRepository userRepository;
 
     public LibraryResponseDto takeBook(TakeBookRequestDto takeBookRequestDto){
         User user = userService.findById(takeBookRequestDto.getUserId());
@@ -27,15 +28,15 @@ public class LibraryService {
         LibraryResponseDto libraryResponseDto = new LibraryResponseDto();
         for (Integer integer : bookId) {
             Book book = bookService.findById(integer);
-            if (!book.equals(null)){
-                book.setUnitInStock(book.getUnitInStock()-bookId.size());
-                user.addBook(book);
-                libraryResponseDto.addBook(book.getBookName());
-            }else{
-                System.out.println("Kitap bulunamadi");
-            }
-
+            book.setUnitInStock(book.getUnitInStock()-1);
+            user.addBook(book);
+            libraryResponseDto.addBook(book.getBookName());
+            bookRepository.save(book);
         }
+
+
+
+
         return libraryResponseDto;
 
 

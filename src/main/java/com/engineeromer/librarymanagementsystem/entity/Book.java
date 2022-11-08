@@ -52,14 +52,8 @@ public class Book {
     private Author author;
 
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "USER_BOOK",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
-    @JsonManagedReference
+    @ManyToMany(mappedBy = "books",fetch = FetchType.LAZY)
+    @JsonBackReference
     private Set<User> users = new HashSet<>();
 
 }
