@@ -1,14 +1,14 @@
 package com.engineeromer.librarymanagementsystem.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,5 +29,6 @@ public class Author {
     private LocalDate birthDay;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "author")
+    @JsonManagedReference
     private List<Book> books;
 }

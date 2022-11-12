@@ -3,11 +3,14 @@ package com.engineeromer.librarymanagementsystem.service;
 import com.engineeromer.librarymanagementsystem.dto.request.authorRequest.DeleteAuthorRequestDto;
 import com.engineeromer.librarymanagementsystem.dto.request.authorRequest.SaveAuthorRequestDto;
 import com.engineeromer.librarymanagementsystem.dto.response.authorResponse.AuthorResponseDto;
+import com.engineeromer.librarymanagementsystem.dto.response.bookResponse.BookResponseDto;
 import com.engineeromer.librarymanagementsystem.entity.Author;
 import com.engineeromer.librarymanagementsystem.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +29,10 @@ public class AuthorService {
         Author author = authorRepository.findById(id).orElseThrow();
         authorRepository.deleteById(author.getId());
         return !authorRepository.existsById(id);
+    }
+    public List<AuthorResponseDto> getAllAuthor(){
+        return authorRepository.findAll().stream().map(item -> modelMapper
+                .map(item,AuthorResponseDto.class)).toList();
     }
 
 

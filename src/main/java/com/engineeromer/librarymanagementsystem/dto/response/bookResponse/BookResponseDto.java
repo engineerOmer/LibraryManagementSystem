@@ -13,5 +13,6 @@ import java.time.LocalDate;
 @Builder
 public class BookResponseDto {
     private String bookName;
+    private int unitInStock;
     private LocalDate editionDate;
 }

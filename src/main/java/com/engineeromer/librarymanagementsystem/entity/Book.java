@@ -2,19 +2,20 @@ package com.engineeromer.librarymanagementsystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 @Table(name = "BOOK")
 public class Book {
     @Id
@@ -33,6 +34,13 @@ public class Book {
 
     @Column(name = "unit_in_stock")
     private int unitInStock;
+
+    public Book(String bookName, LocalDate editionDate, int unitInStock ) {
+        this.bookName = bookName;
+        this.editionDate = editionDate;
+        this.unitInStock = unitInStock;
+
+    }
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(

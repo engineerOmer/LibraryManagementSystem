@@ -6,10 +6,9 @@ import com.engineeromer.librarymanagementsystem.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,4 +20,9 @@ public class AuthorsController {
     public ResponseEntity<AuthorResponseDto> saveAuthor(@RequestBody SaveAuthorRequestDto saveAuthorRequestDto){
         return new ResponseEntity<>(authorService.saveAuthor(saveAuthorRequestDto), HttpStatus.CREATED);
     }
+    @GetMapping("/authorList")
+    public ResponseEntity<List<AuthorResponseDto>> getAuthorList(){
+        return new ResponseEntity<>(authorService.getAllAuthor(),HttpStatus.OK);
+    }
+
 }

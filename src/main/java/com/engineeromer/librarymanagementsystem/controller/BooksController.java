@@ -18,16 +18,21 @@ public class BooksController {
     private final BookService bookService;
 
     @PostMapping("/saveBook")
-    public ResponseEntity<BookResponseDto> saveBook(@RequestBody SaveBookRequestDto saveBookRequestDto){
+    public ResponseEntity<BookResponseDto> saveBook(@RequestBody SaveBookRequestDto saveBookRequestDto) throws Exception {
         return new ResponseEntity<>(bookService.saveBook(saveBookRequestDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteBook")
-    public ResponseEntity<Boolean> deleteBook(@RequestParam (name = "id") int id){
-        return new ResponseEntity<>(bookService.deleteBook(id),HttpStatus.OK);
+    public ResponseEntity<Boolean> deleteBook(@RequestParam (name = "id") int id,@RequestParam (name = "unitInStock") int unitInStock){
+        return new ResponseEntity<>(bookService.deleteBook(id,unitInStock),HttpStatus.OK);
     }
     @GetMapping("/bookList")
     public ResponseEntity<List<BookResponseDto>> getBookList(){
         return new ResponseEntity<>(bookService.getAllBook(),HttpStatus.OK);
+    }
+
+    @PutMapping("/stockUpdate")
+    public ResponseEntity<Boolean> stockUpdateBook(@RequestParam (name = "id") int id,@RequestParam (name = "unitInStock") int unitInStock){
+        return new ResponseEntity<>(bookService.stockUpdate(id,unitInStock),HttpStatus.OK);
     }
 }
