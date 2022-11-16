@@ -2,6 +2,7 @@ package com.engineeromer.librarymanagementsystem.controller;
 
 import com.engineeromer.librarymanagementsystem.dto.request.authorRequest.SaveAuthorRequestDto;
 import com.engineeromer.librarymanagementsystem.dto.response.authorResponse.AuthorResponseDto;
+import com.engineeromer.librarymanagementsystem.dto.response.authorResponse.AuthorWriteAllBookResponseDto;
 import com.engineeromer.librarymanagementsystem.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,10 @@ public class AuthorsController {
     @GetMapping("/authorList")
     public ResponseEntity<List<AuthorResponseDto>> getAuthorList(){
         return new ResponseEntity<>(authorService.getAllAuthor(),HttpStatus.OK);
+    }
+    @GetMapping("/authorBooks")
+    public ResponseEntity<List<AuthorWriteAllBookResponseDto>> getAllAuthorBookList(){
+        return new ResponseEntity<>(authorService.getAllAuthorBook(),HttpStatus.OK);
     }
 
 }

@@ -3,6 +3,7 @@ package com.engineeromer.librarymanagementsystem.service;
 import com.engineeromer.librarymanagementsystem.dto.request.authorRequest.DeleteAuthorRequestDto;
 import com.engineeromer.librarymanagementsystem.dto.request.authorRequest.SaveAuthorRequestDto;
 import com.engineeromer.librarymanagementsystem.dto.response.authorResponse.AuthorResponseDto;
+import com.engineeromer.librarymanagementsystem.dto.response.authorResponse.AuthorWriteAllBookResponseDto;
 import com.engineeromer.librarymanagementsystem.dto.response.bookResponse.BookResponseDto;
 import com.engineeromer.librarymanagementsystem.entity.Author;
 import com.engineeromer.librarymanagementsystem.repository.AuthorRepository;
@@ -35,6 +36,14 @@ public class AuthorService {
                 .map(item,AuthorResponseDto.class)).toList();
     }
 
+    public List<AuthorWriteAllBookResponseDto> getAllAuthorBook(){
+        return authorRepository.findAll().stream().map(
+                author -> AuthorWriteAllBookResponseDto.builder()
+                        .firstName(author.getFirstName())
+                        .bookResponseDtos(author.getBooks().stream().map(t->modelMapper.map(t,BookResponseDto.class)).toList()
+                        ).build())
+                .toList();
+    }
 
     public Author findById(int id){
         return authorRepository.findById(id).orElseThrow();
